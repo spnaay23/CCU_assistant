@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CCU Assistant – Stats</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .stats {
+            margin-top: 2rem;
+        }
+
+        .stat {
+            font-size: 1.2rem;
+            margin: 0.6rem 0;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="glass">
+        <h1>📊 CCU Assistant – Live Stats</h1>
+        <section class="stats" id="stats"></section>
+    </main>
+
+    <script>
+        async function loadStats() {
+            const res = await fetch('/api/stats');
+            const data = await res.json();
+            const container = document.getElementById('stats');
+            container.innerHTML = `
+    <div class="stat"><strong>Total Visits:</strong> ${data.totalVisits}</div>
+    <div class="stat"><strong>Top 5 Locations:</strong></div>
+    <ul>
+      ${data.topLocations.map(l => `<li>${l.city} – ${l.count} visits</li>`).join('')}
+    </ul>
+`;
+        }
+        loadStats();
+        setInterval(loadStats, 30000);
+    </script>
+</body>
+
+</html>

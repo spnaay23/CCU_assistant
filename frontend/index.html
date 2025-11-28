@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CCU Virtual Assistant</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Chat with CCU’s AI assistant – powered by OpenAI/Gemini.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="glass">
+    <h1>CCU Virtual Assistant 🤖</h1>
+    <section id="chatBox" class="chat-box"></section>
+
+    <form id="msgForm" class="msg-form">
+      <input id="msgInput" type="text" placeholder="Ask me anything…" autocomplete="off" required />
+      <button type="submit">Send</button>
+    </form>
+  </main>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="client.js"></script>
+</body>
+</html>
