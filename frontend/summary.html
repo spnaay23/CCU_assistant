@@ -6,41 +6,61 @@
     <title>CCU Assistant – Stats</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <style>
-        .stats {
-            margin-top: 2rem;
-        }
-
-        .stat {
-            font-size: 1.2rem;
-            margin: 0.6rem 0;
-        }
-    </style>
 </head>
 
 <body>
     <main class="glass">
-        <h1>📊 CCU Assistant – Live Stats</h1>
-        <section class="stats" id="stats"></section>
+        <header>
+            <div class="status-dot"
+                style="background: var(--accent-primary); box-shadow: 0 0 8px var(--accent-primary);"></div>
+            <h1>Live Statistics</h1>
+        </header>
+
+        <section class="chat-box"> <!-- Reusing chat-box for scrolling container -->
+            <div class="stats-container" id="stats">
+                <div class="stat-card">
+                    <div class="stat-label">Loading...</div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <script>
         async function loadStats() {
-            const res = await fetch('/api/stats');
-            const data = await res.json();
-            const container = document.getElementById('stats');
-            container.innerHTML = `
-    <div class="stat"><strong>Total Visits:</strong> ${data.totalVisits}</div>
-    <div class="stat"><strong>Top 5 Locations:</strong></div>
-    <ul>
-      ${data.topLocations.map(l => `<li>${l.city} – ${l.count} visits</li>`).join('')}
-    </ul>
-`;
+            try {
+                const res = await fetch('/api/stats');
+                const data = await res.json();
+                const container = document.getElementById('stats');
+
+                container.innerHTML = `
+                    <div class="stat-card">
+                        <div class="stat-label">Total Visits</div>
+                        <div class="stat-value">${data.totalVisits}</div>
+                    </div>
+                    
+                    <div class="stat-card" style="margin-top: 0.5rem;">
+                        <div class="stat-label">Active Users</div>
+                        <div class="stat-value" style="color: #22c55e;">${data.totalUsers}</div>
+                    </div>
+
+                    <div class="stat-list-header">Top Locations</div>
+                    <ul class="stat-list">
+                        ${data.topLocations.map(l => `
+                            <li>
+                                <span>${l.city}</span>
+                                <span class="count">${l.count}</span>
+                            </li>
+                        `).join('')}
+                    </ul>
+                `;
+            } catch (e) {
+                console.error(e);
+            }
         }
         loadStats();
-        setInterval(loadStats, 30000);
+        setInterval(loadStats, 5000); // Update every 5 seconds
     </script>
 </body>
 

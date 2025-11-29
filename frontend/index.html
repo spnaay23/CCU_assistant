@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>CCU Virtual Assistant</title>
@@ -9,18 +10,33 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <main class="glass">
-    <h1>CCU Virtual Assistant 🤖</h1>
-    <section id="chatBox" class="chat-box"></section>
+    <header>
+      <div class="status-dot"></div>
+      <h1>CCU Virtual Assistant</h1>
+    </header>
+
+    <section id="chatBox" class="chat-box">
+      <!-- Welcome message could go here, or be added via JS -->
+      <div class="msg assistant">Hello! I'm your CCU AI Assistant. How can I help you today?</div>
+    </section>
 
     <form id="msgForm" class="msg-form">
-      <input id="msgInput" type="text" placeholder="Ask me anything…" autocomplete="off" required />
-      <button type="submit">Send</button>
+      <input id="msgInput" type="text" placeholder="Type your message..." autocomplete="off" required />
+      <button type="submit">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
+      </button>
     </form>
   </main>
 
   <script src="/socket.io/socket.io.js"></script>
   <script src="client.js"></script>
 </body>
+
 </html>
